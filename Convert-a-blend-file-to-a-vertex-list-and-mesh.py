@@ -1,6 +1,7 @@
 import numpy as np
 import tkinter as tk
 from tkinter import filedialog
+import os
 
 def obj_to_text(obj_file):
     vertices = []
@@ -17,6 +18,12 @@ def obj_to_text(obj_file):
 
     return f"Vertices: {vertices}\nFaces: {faces}"
 
+def save_to_file(text):
+    desktop_path = os.path.join(os.path.expanduser("~"), "Desktop", "output.txt")
+    with open(desktop_path, 'w') as file:
+        file.write(text)
+    print(f"Сохранено в {desktop_path}")
+
 def select_obj_file():
     root = tk.Tk()
     root.withdraw()  # Скрываем корневое окно
@@ -24,8 +31,10 @@ def select_obj_file():
     if file_path:  # Проверяем, выбран ли файл
         text = obj_to_text(file_path)
         print(text)
+        save_to_file(text)  # Сохраняем текст в файл
     else:
         print("Файл не выбран.")
 
 # Запуск диалогового окна
 select_obj_file()
+
